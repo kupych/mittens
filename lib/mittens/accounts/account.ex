@@ -15,17 +15,17 @@ defmodule Mittens.Accounts.Account do
   @required_fields [:external_id, :name]
 
   schema "accounts" do
+    field :active, :boolean, default: true
     field :external_id, :string
     field :name, :string
-    field :active, :boolean, default: true
+
+    timestamps()
   end
 
   @doc """
   `changeset/2` returns a new `Ecto.Changeset` for an account, after
   validating all required fields are present and all fields are
   valid.
-
-  For example usage see `changeset/2`.
 
   ## Example
 

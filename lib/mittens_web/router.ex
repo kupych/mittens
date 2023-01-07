@@ -7,6 +7,9 @@ defmodule MittensWeb.Router do
 
   scope "/api", MittensWeb do
     pipe_through :api
+
+    get "/zones", ZoneController, :index
+    post "/zones", ZoneController, :command
   end
 
   # Enables LiveDashboard only for development

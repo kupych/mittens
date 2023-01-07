@@ -24,6 +24,7 @@ config :mittens, MittensWeb.Endpoint,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "C+xYriLB9CKsZ0K01Wkr2r5R0ynDF//FWFkFpGxJYGDwobvfV+J3gVpUEfgTK1x9",
+  server: true,
   watchers: []
 
 # ## SSL Support
