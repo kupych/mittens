@@ -10,6 +10,7 @@ defmodule MittensWeb.Router do
 
     get "/zones", ZoneController, :index
     post "/zones", ZoneController, :command
+    post "/listen", ListenController, :listen
   end
 
   # Enables LiveDashboard only for development
