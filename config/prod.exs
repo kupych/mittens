@@ -17,7 +17,7 @@ config :mittens, Mittens.Repo,
   ssl: true,
   url: {:system, "DATABASE_URL"}
 
-config :slack, api_token: {:system, "SLACK_TOKEN"}
+config :slack, api_token: System.get_env("SLACK_TOKEN")
 
 # Do not print debug messages in production
 config :logger, level: :info
