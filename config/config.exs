@@ -37,7 +37,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :slack, api_token: "xoxb-3328886489-4598851791268-bdqPHCMgYn7a4i7AYesESEyi"
+config :slack, api_token: System.get_env("SLACK_TOKEN")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
