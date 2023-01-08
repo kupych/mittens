@@ -12,10 +12,10 @@ import Config
 
 config :mittens, Mittens.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: {:system, "DATABASE_URL"},
-  database: "",
+  database: {:system, "DATABASE_NAME"},
+  pool_size: {:system, "POOL_SIZE"},
   ssl: true,
-  pool_size: {:system, "POOL_SIZE"}
+  url: {:system, "DATABASE_URL"}
 
 config :slack, api_token: {:system, "SLACK_TOKEN"}
 
