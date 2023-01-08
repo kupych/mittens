@@ -13,9 +13,11 @@ import Config
 config :mittens, Mittens.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: {:system, "DATABASE_URL"},
-  database: "mittens_prod",
+  database: "",
   ssl: true,
-  pool_size: 2
+  pool_size: {:system, "POOL_SIZE"}
+
+config :slack, api_token: {:system, "SLACK_TOKEN"}
 
 # Do not print debug messages in production
 config :logger, level: :info
