@@ -108,6 +108,10 @@ defmodule MittensWeb.ZoneController do
     end
   end
 
+  defp parse_command_text("swap " <> params) do
+
+  end
+
   defp parse_command_text("list assigned" <> _) do
     []
     |> Zones.list_zones()

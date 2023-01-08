@@ -10,6 +10,13 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 
+config :mittens, Mittens.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: {:system, "DATABASE_URL"},
+  database: "mittens_prod",
+  ssl: true,
+  pool_size: 2
+
 # Do not print debug messages in production
 config :logger, level: :info
 
