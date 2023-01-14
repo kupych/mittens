@@ -20,7 +20,7 @@ defmodule MittensWeb.ZoneController do
   @doc """
   `index/2` will list the zones of responsibility.
   """
-  def index(%Conn{} = conn, %{} = params) do
+  def index(%Conn{} = conn, _) do
     text(conn, "Hi")
   end
 
@@ -53,7 +53,7 @@ defmodule MittensWeb.ZoneController do
   end
 
 
-  def command(%Conn{} = conn, %{"text" => text} = params) do
+  def command(%Conn{} = conn, %{"text" => text}) do
     text(conn, parse_command_text(text))
   end
 
@@ -94,7 +94,7 @@ defmodule MittensWeb.ZoneController do
 
   defp parse_command_text("unassign " <> params) do
     with regex <- ~r/\<\@(.*?)\|(.*?)\> (.*)/,
-         [_, id, name, slug] <- Regex.run(regex, params),
+         [_, id, _, slug] <- Regex.run(regex, params),
          %Zone{} = zone <- Zones.get_zone_by_slug(slug) || :zone_not_found,
          %{accounts: accounts} = zone <- Repo.preload(zone, :accounts),
          %Account{} = account <- Enum.find(accounts, &(&1.external_id == id)) do
@@ -106,10 +106,6 @@ defmodule MittensWeb.ZoneController do
       nil -> "Account not associated with zone"
       _ -> "Invalid syntax"
     end
-  end
-
-  defp parse_command_text("swap " <> params) do
-
   end
 
   defp parse_command_text("list assigned" <> _) do
@@ -126,10 +122,6 @@ defmodule MittensWeb.ZoneController do
     |> Enum.map(&"\"#{&1.name}\" (`#{&1.slug}`)")
     |> then(&["*Zones:*" | &1])
     |> Enum.join("\n")
-  end
-
-  defp do_parse(t) do
-    t
   end
 
   defp get_slug(zone_data) do

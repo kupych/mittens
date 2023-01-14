@@ -10,7 +10,6 @@ defmodule Mittens.Accounts do
   alias Ecto.Query.DynamicExpr
   alias Mittens.Accounts.Account
   alias Mittens.Repo
-  alias Mittens.Zones.Zone
 
   @doc """
   `delete_account/1` deletes an account.
@@ -51,7 +50,7 @@ defmodule Mittens.Accounts do
   def list_accounts(filters) when is_list(filters) do
     Account
     |> where(^list_accounts_where(filters))
-    |> Repo.get_all()
+    |> Repo.all()
   end
 
   @doc """
