@@ -9,8 +9,10 @@ defmodule MittensWeb.Router do
     pipe_through :api
 
     get "/zones", ZoneController, :index
-    post "/zones", ZoneController, :command
+    post "/dibs", DibsController, :dibs
     post "/listen", ListenController, :listen
+    post "/undibs", DibsController, :undibs
+    post "/zones", ZoneController, :command
   end
 
   # Enables LiveDashboard only for development

@@ -2,8 +2,7 @@ defmodule Mittens.Zones.Zone do
   @moduledoc """
   `Mittens.Zones.Zone corresponds to a Zone
   of responsibility within the mission
-  control system. Generally linked
-  with a` Mittens.Zones.Zone.`
+  control system.
   """
 
   use Ecto.Schema

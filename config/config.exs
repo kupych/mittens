@@ -37,6 +37,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :mittens, :dibs, api_token: System.get_env("DIBS_TOKEN")
 config :slack, api_token: System.get_env("SLACK_TOKEN")
 
 # Import environment specific config. This must remain at the bottom

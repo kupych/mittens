@@ -72,7 +72,8 @@ defmodule Mittens.Accounts do
     Enum.reduce(filters, dynamic(true), fn
       {:external_id, id}, %DynamicExpr{} = dynamic when is_binary(id) ->
         dynamic([a], ^dynamic and a.external_id == ^id)
-      {_, _}, %DynamicExpr{} = dynamic -> 
+
+      {_, _}, %DynamicExpr{} = dynamic ->
         dynamic
     end)
   end

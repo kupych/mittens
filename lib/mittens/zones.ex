@@ -122,7 +122,7 @@ defmodule Mittens.Zones do
 
   def unassign_account(%Zone{} = zone, %Account{} = account) do
     %{accounts: accounts} = zone = maybe_preload_accounts(zone)
-    accounts = Enum.reject(accounts, & &1.id == account.id)
+    accounts = Enum.reject(accounts, &(&1.id == account.id))
 
     zone
     |> Zone.changeset(%{})

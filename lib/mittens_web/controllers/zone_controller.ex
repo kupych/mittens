@@ -52,7 +52,6 @@ defmodule MittensWeb.ZoneController do
     text(conn, "")
   end
 
-
   def command(%Conn{} = conn, %{"text" => text}) do
     text(conn, parse_command_text(text))
   end
