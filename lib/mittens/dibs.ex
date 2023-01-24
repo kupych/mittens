@@ -33,8 +33,9 @@ defmodule Mittens.Dibs do
   """
   @spec get_dib_by_name(name :: binary) :: Dib.t() | nil
   def get_dib_by_name(name) when is_binary(name) do
+    now = DateTime.utc_now()
     Dib
-    |> where([d], d.name == ^name)
+    |> where([d], d.name == ^name and d.expiry > ^now)
     |> limit(1)
     |> Repo.one()
   end
