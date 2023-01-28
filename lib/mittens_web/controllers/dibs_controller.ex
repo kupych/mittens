@@ -37,7 +37,7 @@ defmodule MittensWeb.DibsController do
         expiry = end_of_day(days)
         new_params = %{account: Map.get(params, "user_id"), expiry: expiry, name: name}
         Dibs.upsert_dib(dib || %Dib{}, new_params)
-        text(conn, "Reserved `#{name}` until #{expiry}!")
+        text(conn, "Reserved `#{name}` until #{Timex.format!(expiry, "{Mfull} {D}")}")
     end
   end
 
