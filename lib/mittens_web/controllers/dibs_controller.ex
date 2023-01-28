@@ -29,7 +29,7 @@ defmodule MittensWeb.DibsController do
         _ -> 1
       end
 
-    case Dibs.get_dib_by_name(name) do
+    case Dibs.get_dib_by_name(name, true) do
       %Dib{expiry: expiry} = dib when expiry > now ->
         text(conn, "#{name}#{Dibs.print_dib(dib)}")
 

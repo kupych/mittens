@@ -29,13 +29,15 @@ defmodule Mittens.Dibs do
   end
 
   @doc """
-  `get_dib_by_name/1` returns a dib given a server name.
+  `get_dib_by_name/2` returns a dib given a server name. If the optional second
+  parameter is set to `true`, includes expired dib, otherwise only returns
+  non-expired dib.
   """
-  @spec get_dib_by_name(name :: binary) :: Dib.t() | nil
-  def get_dib_by_name(name) when is_binary(name) do
+  @spec get_dib_by_name(name :: binary, include_expired? :: boolean) :: Dib.t() | nil
+  def get_dib_by_name(name, include_expired? \\ false) when is_binary(name) do
     now = DateTime.utc_now()
     Dib
-    |> where([d], d.name == ^name and d.expiry > ^now)
+    |> where([d], d.name == ^name and (^include_expired? or d.expiry > ^now))
     |> limit(1)
     |> Repo.one()
   end
@@ -79,7 +81,7 @@ defmodule Mittens.Dibs do
     " is free!"
   end
 
-  def print_undib(%Dib{account: account, name: name} = dib) do
+  def print_undib(%Dib{account: account, name: name}) do
     "Unassigned <@#{account}> from `#{name}`"
   end
 
