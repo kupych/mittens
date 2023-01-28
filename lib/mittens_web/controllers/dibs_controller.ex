@@ -29,15 +29,19 @@ defmodule MittensWeb.DibsController do
         _ -> 1
       end
 
-    case Dibs.get_dib_by_name(name, true) do
-      %Dib{expiry: expiry} = dib when expiry > now ->
-        text(conn, "#{name}#{Dibs.print_dib(dib)}")
+     if name in @valid_servers do
+      case Dibs.get_dib_by_name(name, true) do
+        %Dib{expiry: expiry} = dib when expiry > now ->
+          text(conn, "#{name}#{Dibs.print_dib(dib)}")
 
-      dib ->
-        expiry = end_of_day(days)
-        new_params = %{account: Map.get(params, "user_id"), expiry: expiry, name: name}
-        Dibs.upsert_dib(dib || %Dib{}, new_params)
-        text(conn, "Reserved `#{name}` until #{Timex.format!(expiry, "{Mfull} {D}")}")
+        dib ->
+          expiry = end_of_day(days)
+          new_params = %{account: Map.get(params, "user_id"), expiry: expiry, name: name}
+          Dibs.upsert_dib(dib || %Dib{}, new_params)
+          text(conn, "Reserved `#{name}` until midnight on #{Timex.format!(expiry, "{Mfull} {D}")}#{past_message(days)}")
+      end
+    else
+      text(conn, "`#{name}`? `#{name}` is not a real server. Quit playin'!")
     end
   end
 
@@ -62,5 +66,13 @@ defmodule MittensWeb.DibsController do
     Timex.today()
     |> Date.add(days)
     |> Timex.to_datetime()
+  end
+
+  defp past_message(days) when is_integer(days) and days < 1 do
+    "... which is in the past. But hey, you're the boss, boss. :shrug:"
+  end
+
+  defp past_message(_) do
+    ""
   end
 end
