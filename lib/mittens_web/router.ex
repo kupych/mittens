@@ -13,7 +13,7 @@ defmodule MittensWeb.Router do
     post "/listen", ListenController, :listen
     post "/undibs", DibsController, :undibs
     post "/zones", ZoneController, :command
-    get "/toggl/:key", TogglController, :index
+    get "/toggl/:key", TogglController, :show
     post "/toggl", TogglController, :refresh
   end
 
