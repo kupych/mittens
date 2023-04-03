@@ -30,11 +30,13 @@ defmodule MittensWeb.DibsController do
       end
 
      if name in @valid_servers do
-      case Dibs.get_dib_by_name(name, true) do
-        %Dib{expiry: expiry} = dib when expiry > now ->
+       dib = Dibs.get_dib_by_name(name, true)
+       with %Dib{expiry: expiry} <- dib,
+            :gt <- DateTime.compare(expiry, now) do
           text(conn, "#{name}#{Dibs.print_dib(dib)}")
 
-        dib ->
+       else
+        _ ->
           expiry = end_of_day(days)
           new_params = %{account: Map.get(params, "user_id"), expiry: expiry, name: name}
           Dibs.upsert_dib(dib || %Dib{}, new_params)
