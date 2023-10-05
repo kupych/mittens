@@ -1,7 +1,7 @@
 defmodule MittensWeb.DibsController do
   @moduledoc false
 
-  @valid_servers ["develop", "staging"]
+  @valid_servers ["develop", "staging", "test"]
 
   use MittensWeb, :controller
 
