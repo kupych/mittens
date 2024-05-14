@@ -11,10 +11,11 @@ defmodule Mittens.Zones.Zone do
 
   @type t() :: %__MODULE__{}
 
-  @fields [:description, :name, :slug]
+  @fields [:active, :description, :name, :slug]
   @required_fields [:name, :slug]
 
   schema "zones" do
+    field :active, :boolean, default: true
     field :description, :string
     field :max_slots, :integer, default: 1
     field :name, :string
