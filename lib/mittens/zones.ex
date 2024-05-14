@@ -131,7 +131,9 @@ defmodule Mittens.Zones do
   end
 
   defp list_zones_where(filters) when is_list(filters) do
-    Enum.reduce(filters, dynamic(true), fn
+    default_query = dynamic([z], z.active == true)
+
+    Enum.reduce(filters, default_query, fn
       {:permanent?, permanent?}, %DynamicExpr{} = dynamic when is_boolean(permanent?) ->
         dynamic([z], ^dynamic and z.permanent == ^permanent?)
 
