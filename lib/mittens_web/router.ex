@@ -8,6 +8,7 @@ defmodule MittensWeb.Router do
   scope "/api", MittensWeb do
     pipe_through :api
 
+    get "/", MeowController, :index
     get "/zones", ZoneController, :index
     post "/dibs", DibsController, :dibs
     post "/listen", ListenController, :listen
