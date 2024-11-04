@@ -14,6 +14,7 @@ defmodule MittensWeb.Router do
     post "/listen", ListenController, :listen
     post "/undibs", DibsController, :undibs
     post "/zones", ZoneController, :command
+    get "/zones/:slug", ZoneController, :show
     get "/toggl/:key", TogglController, :show
     post "/toggl", TogglController, :refresh
   end

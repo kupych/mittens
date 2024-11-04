@@ -37,6 +37,17 @@ defmodule MittensWeb.ZoneController do
     text(conn, "")
   end
 
+  def command(%Conn{} = conn, %{"text" => "coinflip"} = params) do
+    channel = get_channel(params)
+
+    coinflip = Enum.random(["Heads", "Tails"])
+
+    messages = ["Flipping coin...", "The coin landed on #{coinflip}!"]
+
+    Task.async(fn -> Enum.each(messages, &Slack.Web.Chat.post_message(channel, &1)) end)
+    text(conn, "")
+  end
+
   def command(%Conn{} = conn, %{"text" => "shuffle"} = params) do
     channel = get_channel(params)
 
