@@ -36,6 +36,7 @@ defmodule Mittens.Dibs do
   @spec get_dib_by_name(name :: binary, include_expired? :: boolean) :: Dib.t() | nil
   def get_dib_by_name(name, include_expired? \\ false) when is_binary(name) do
     now = DateTime.utc_now()
+
     Dib
     |> where([d], d.name == ^name and (^include_expired? or d.expiry > ^now))
     |> limit(1)

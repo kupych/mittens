@@ -9,7 +9,6 @@ defmodule Mittens.Toggl do
   alias Mittens.Repo
   alias Mittens.Toggl.TogglProject
 
-
   def get_project(key) when is_binary(key) do
     TogglProject
     |> where([t], t.key == ^key)
@@ -32,7 +31,7 @@ defmodule Mittens.Toggl do
 
   def refresh_projects() do
     with [token: token, workspace_id: workspace_id] = Application.get_env(:mittens, :toggl),
-         headers <- [{'Authorization', "Basic #{base64_token(token)}"}],
+         headers <- [{"Authorization", "Basic #{base64_token(token)}"}],
          url <-
            "https://api.track.toggl.com/api/v9/workspaces/#{workspace_id}/projects?active=true",
          {:ok, {_, _, body}} <- :httpc.request(:get, {url, headers}, [], []),
@@ -56,6 +55,9 @@ defmodule Mittens.Toggl do
   end
 
   defp upsert_toggl_project(%Changeset{} = changeset) do
-    Repo.insert(changeset, on_conflict: {:replace_all_except, [:id, :inserted_at]}, conflict_target: :key)
+    Repo.insert(changeset,
+      on_conflict: {:replace_all_except, [:id, :inserted_at]},
+      conflict_target: :key
+    )
   end
 end

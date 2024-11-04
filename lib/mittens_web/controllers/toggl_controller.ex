@@ -7,11 +7,11 @@ defmodule MittensWeb.TogglController do
   alias Mittens.Toggl.TogglProject
   alias Plug.Conn
 
-
   def show(%Conn{} = conn, %{"key" => key}) do
     case Toggl.get_project(key) do
       %TogglProject{project_id: id} ->
-      text(conn, id)
+        text(conn, id)
+
       _ ->
         conn
         |> put_status(:not_found)
