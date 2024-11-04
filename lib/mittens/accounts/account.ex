@@ -19,6 +19,11 @@ defmodule Mittens.Accounts.Account do
     field :external_id, :string
     field :name, :string
 
+    many_to_many(:zones, Mittens.Zones.Zone,
+      join_through: "accounts_zones",
+      on_replace: :delete
+    )
+
     timestamps()
   end
 

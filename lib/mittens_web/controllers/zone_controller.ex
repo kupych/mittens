@@ -9,6 +9,8 @@ defmodule MittensWeb.ZoneController do
   alias Mittens.Zones.Zone
   alias Plug.Conn
 
+  require Logger
+
   @header_message """
   *Mission Control Checklist*
   (Please sign off with a :white_check_mark: if your section is good)
@@ -22,6 +24,17 @@ defmodule MittensWeb.ZoneController do
   """
   def index(%Conn{} = conn, _) do
     text(conn, "Hi")
+  end
+
+  def command(%Conn{} = conn, %{"text" => "whatsmyzoneagain"} = params) do
+    user_id = Map.get(params, "user_id")
+
+    with %Account{} = account <- Accounts.get_account_by_external_id(user_id),
+         %{zones: [z | _]} = account <- Repo.preload(account, :zones) do
+      text(conn, "You are assigned to: `#{z.name}`")
+    else
+      _ -> text(conn, "You're currently zoneless :dove_of_peace:")
+    end
   end
 
   def command(%Conn{} = conn, %{"text" => "run"} = params) do
