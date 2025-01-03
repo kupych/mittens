@@ -14,7 +14,6 @@ config :mittens, Mittens.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: {:system, "DATABASE_NAME"},
   pool_size: {:system, "POOL_SIZE"},
-  ssl: true,
   url: {:system, "DATABASE_URL"}
 
 # Do not print debug messages in production

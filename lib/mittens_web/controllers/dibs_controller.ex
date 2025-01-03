@@ -9,9 +9,7 @@ defmodule MittensWeb.DibsController do
   alias Mittens.Dibs.Dib
   alias Plug.Conn
 
-  @seconds_in_day 8640
-
-  def dibs(%Conn{} = conn, %{"text" => ""} = params) do
+  def dibs(%Conn{} = conn, %{"text" => ""}) do
     @valid_servers
     |> Enum.map(&"`#{&1}`#{Dibs.print_dib(Dibs.get_dib_by_name(&1))}")
     |> Enum.join("\n")
@@ -51,7 +49,7 @@ defmodule MittensWeb.DibsController do
     end
   end
 
-  def undibs(%Conn{} = conn, %{"user_id" => account} = params) do
+  def undibs(%Conn{} = conn, %{"user_id" => account}) do
     account
     |> Dibs.get_dibs_by_account()
     |> Enum.map(&Dibs.delete_dib/1)
@@ -64,7 +62,7 @@ defmodule MittensWeb.DibsController do
     end
   end
 
-  defp print_undib(%Dib{account: account, name: name} = dib) do
+  defp print_undib(%Dib{account: account, name: name}) do
     "Unassigned <@#{account}> from `#{name}`"
   end
 

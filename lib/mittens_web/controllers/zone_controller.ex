@@ -30,7 +30,7 @@ defmodule MittensWeb.ZoneController do
     user_id = Map.get(params, "user_id")
 
     with %Account{} = account <- Accounts.get_account_by_external_id(user_id),
-         %{zones: [z | _]} = account <- Repo.preload(account, :zones) do
+         %{zones: [z | _]} <- Repo.preload(account, :zones) do
       text(conn, "You are assigned to: `#{z.name}`")
     else
       _ -> text(conn, "You're currently zoneless :dove_of_peace:")

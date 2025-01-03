@@ -75,7 +75,7 @@ defmodule Mittens.Dibs do
   end
 
   def print_dib(%Dib{account: account, expiry: expiry, name: name}) do
-    " is reserved by <@#{account}> until #{print_expiry(expiry)}"
+    "#{name} is reserved by <@#{account}> until #{print_expiry(expiry)}"
   end
 
   def print_dib(_) do
